@@ -33,28 +33,16 @@ public class ConsoleApp {
 			public int compare(Route o1, Route o2) {
 				// TODO Auto-generated method stub
 
-				if (o1.getStart().getHour() > o2.getStart().getHour()) {
+				if (o1.getStart().getHour() > o2.getStart().getHour()
+				|| o1.getStart().getMinutes() > o2.getStart().getMinutes()
+				|| o1.getFinish().getMinutes() < o2.getFinish().getMinutes()
+				|| o1.getRouteTime() > o2.getRouteTime()) {
 					return 1;
 				}
-				if (o1.getStart().getHour() < o2.getStart().getHour()) {
-					return -1;
-				}
-				if (o1.getStart().getMinutes() > o2.getStart().getMinutes()) {
-					return 1;
-				}
-				if (o1.getStart().getMinutes() < o2.getStart().getMinutes()) {
-					return -1;
-				}
-				if (o1.getFinish().getMinutes() > o2.getFinish().getMinutes()) {
-					return -1;
-				}
-				if (o1.getFinish().getMinutes() < o2.getFinish().getMinutes()) {
-					return 1;
-				}
-				if (o1.getRouteTime() > o2.getRouteTime()) {
-					return 1;
-				}
-				if (o1.getRouteTime() < o2.getRouteTime()) {
+				if (o1.getStart().getHour() < o2.getStart().getHour()
+				|| o1.getStart().getMinutes() < o2.getStart().getMinutes()
+				|| o1.getFinish().getMinutes() > o2.getFinish().getMinutes()
+				|| o1.getRouteTime() < o2.getRouteTime()) {
 					return -1;
 				}
 				return 0;
