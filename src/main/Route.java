@@ -36,11 +36,11 @@ public class Route {
 	public int getRouteTime() {
 		LocalTime b = LocalTime.of(finish.getHour(), finish.getMinutes());
 		LocalTime time = b.minusHours(start.getHour()).minusMinutes(start.getMinutes());
-		int a = time.getHour()*60+time.getMinute();
-		if(a > 60) {
+		int timeInRoute = time.getHour()*60+time.getMinute(); //изменено имя
+		if(timeInRoute > 60) {
 			return Integer.MAX_VALUE;
 		}
-		return a;
+		return timeInRoute;
 	}
 	@Override
 	public String toString() {

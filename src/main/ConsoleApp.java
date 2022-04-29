@@ -26,13 +26,17 @@ public class ConsoleApp {
 	}
 
 	private static void sortList(List<Route> list) {
+
 		list.sort(new Comparator<Route>() {
 
 			@Override
 			public int compare(Route o1, Route o2) {
 				// TODO Auto-generated method stub
-
-				if (o1.getStart().getHour() > o2.getStart().getHour()) {
+				return o1.getStart().getHour() - o2.getStart().getHour();
+				return o1.getStart().getMinutes() - o2.getStart().getMinutes();
+				return o1.getFinish().getMinutes() - o2.getFinish().getMinutes();
+				return o1.getRouteTime() - o2.getRouteTime();
+				/* if (o1.getStart().getHour() > o2.getStart().getHour()) {
 					return 1;
 				}
 				if (o1.getStart().getHour() < o2.getStart().getHour()) {
@@ -57,7 +61,7 @@ public class ConsoleApp {
 					return -1;
 				}
 				return 0;
-			}
+			} */
 
 		});
 	}
@@ -91,12 +95,10 @@ public class ConsoleApp {
 		for (int i = 0; i < list.size() - 2; ++i) {
 			Route t = list.get(i);
 			for (int j = i + 1; j < list.size() - 1; ++j) {
-				if (t.getRouteTime() == list.get(j).getRouteTime()
+				if ((t.getRouteTime() == list.get(j).getRouteTime()
 						&& t.getStart().getBusTime().equals(list.get(j).getStart().getBusTime())
-						&& t.getFinish().getBusTime().equals(list.get(j).getFinish().getBusTime())) {
-					list.remove(j);
-				}
-				if (t.getStart().getBusTime().equals(list.get(j).getStart().getBusTime())) {
+						&& t.getFinish().getBusTime().equals(list.get(j).getFinish().getBusTime()))
+						|| t.getStart().getBusTime().equals(list.get(j).getStart().getBusTime())) {
 					list.remove(j);
 				}
 				if (t.getFinish().getBusTime().equals(list.get(j).getFinish().getBusTime())) {
