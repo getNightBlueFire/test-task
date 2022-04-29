@@ -32,11 +32,7 @@ public class ConsoleApp {
 			@Override
 			public int compare(Route o1, Route o2) {
 				// TODO Auto-generated method stub
-				return o1.getStart().getHour() - o2.getStart().getHour();
-				return o1.getStart().getMinutes() - o2.getStart().getMinutes();
-				return o1.getFinish().getMinutes() - o2.getFinish().getMinutes();
-				return o1.getRouteTime() - o2.getRouteTime();
-				/* if (o1.getStart().getHour() > o2.getStart().getHour()) {
+				if (o1.getStart().getHour() > o2.getStart().getHour()) {
 					return 1;
 				}
 				if (o1.getStart().getHour() < o2.getStart().getHour()) {
@@ -61,7 +57,7 @@ public class ConsoleApp {
 					return -1;
 				}
 				return 0;
-			} */
+			}
 
 		});
 	}

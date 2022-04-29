@@ -63,6 +63,6 @@ public class Route {
 		String value = busCompany + " " + start.getHour() + ":" + min_s + " " + finish.getHour() + ":" + min_f + "\r\n";
 		return value;
 	}
-
+	// Great day!
 
 }
