@@ -1,5 +1,6 @@
 # test task
 Hi everyone!!!
+Tell me please Dmitry how to start this project?
 
 всем привет
 
@@ -9,3 +10,4 @@ Hi everyone!!!
  
 Доброго времени суток) 
  - Это Влад.
+
