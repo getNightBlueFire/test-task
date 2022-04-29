@@ -13,6 +13,8 @@ public class ConsoleApp {
 
 	public static void main(String[] args) {
 
+		System.out.println("Dont be late next time, pls!!!");
+
 		String input = args[0];
 
 		// String input = "C:/Users/Administrator/Desktop/input.txt";
