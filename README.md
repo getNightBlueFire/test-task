@@ -5,6 +5,7 @@ Tell me please Dmitry how to start this project?
 
 всем привет
 
+<<<<<<< HEAD
 И от меня привет) - Анастасия
 
 Привет, это Илья.
@@ -12,3 +13,8 @@ Tell me please Dmitry how to start this project?
 Доброго времени суток) 
  - Это Влад.
 
+=======
+Good night, everyone)
+
+Congratulate with the May 1st)
+>>>>>>> new_Branch
