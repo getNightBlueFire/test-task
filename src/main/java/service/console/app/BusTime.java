@@ -28,3 +28,15 @@ public class BusTime {
 	}
 
 }
+class Result{
+	public static void main(String[] args) {
+		double x = (100 *Math.random());
+		if(x < 50){
+			System.out.println("Wait for your bus");
+		}
+		else if(x >= 50){
+			System.out.println("Your bus has arrived");
+		}
+		else System.out.println("Unknown error");
+	}
+}
