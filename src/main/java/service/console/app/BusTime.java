@@ -37,5 +37,6 @@ class Result{
 		else if(x >= 50){
 			System.out.println("Your bus has arrived");
 		}
+		else System.out.println("Unknown error");
 	}
 }
