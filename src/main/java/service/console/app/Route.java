@@ -75,5 +75,8 @@ public class Route {
 				add("Volvo");
 				add("Chevrolet");
 			}};
+			String s = list.get(2);
+			if(s.equals("Volvo")){
+			System.out.println(s);}
 		}
  }
