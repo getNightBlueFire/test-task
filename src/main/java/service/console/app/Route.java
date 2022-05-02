@@ -68,7 +68,12 @@ public class Route {
 }
     class List{
 		public static void main(String[] args) {
-			ArrayList<String> list = new ArrayList<>();
-
+			ArrayList<String> list = new ArrayList<String>()
+			{{
+				add("BMW");
+				add("Mercedes");
+				add("Volvo");
+				add("Chevrolet");
+			}};
 		}
  }
