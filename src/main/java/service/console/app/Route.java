@@ -1,6 +1,7 @@
 package service.console.app;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Route {
 	private String busCompany;
@@ -64,5 +65,10 @@ public class Route {
 		return value;
 	}
 	// Great day!
-
 }
+    class List{
+		public static void main(String[] args) {
+			ArrayList<String> list = new ArrayList<>();
+
+		}
+ }
