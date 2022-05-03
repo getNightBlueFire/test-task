@@ -27,4 +27,7 @@ public class BusTime {
 		return hour+":"+minutes;
 	}
 
+	public static void main(String[] args) {
+		System.out.println("Your are late!");
+	}
 }
