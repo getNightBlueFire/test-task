@@ -36,8 +36,8 @@ public class Route {
 	public int getRouteTime() {
 		LocalTime b = LocalTime.of(finish.getHour(), finish.getMinutes());
 		LocalTime time = b.minusHours(start.getHour()).minusMinutes(start.getMinutes());
-		int a = time.getHour()*60+time.getMinute();
-		if(a > 60) {
+		int timeImMinutes = time.getHour()*60+time.getMinute();
+		if(timeImMinutes > 60) {
 			return Integer.MAX_VALUE;
 		}
 		return a;
