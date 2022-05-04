@@ -4,27 +4,19 @@ import static service.console.app.ProcessRoute.getInputFile;
 import static service.console.app.ProcessRoute.processCollections;
 import static service.console.app.ProcessRoute.writeToOutputFile;
 
+import jdk.internal.joptsimple.internal.Strings;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConsoleApp {
 
     public static void main(String[] args) {
-        String input;
-        String output;
-        List<Route> list;
+
         if (isTest(args)) {
-            List<String> test = new ArrayList<>();
-            createTestDate(test);
-            list = getInputFile(test);
-            List<Route> sort = processCollections(list);
-            writeToOutputFile(sort);
+            writeToOutputFile(processCollections(getInputFile(createTestDate())));
         } else {
-            input = args[0];
-            list = getInputFile(input);
-            output = input.concat("_output.txt");
-            List<Route> sort = processCollections(list);
-            writeToOutputFile(sort, output);
+            writeToOutputFile(processCollections(getInputFile(args[0])), args[1]);
         }
 
     }
@@ -33,7 +25,8 @@ public class ConsoleApp {
         return args.length == 0;
     }
 
-    private static void createTestDate(List<String> list) {
+    private static List<String> createTestDate() {
+        List<String> list = new ArrayList<>();
         list.add("Posh 10:15 11:10");
         list.add("Posh 10:21 11:10");
         list.add("Posh 10:10 11:00");
@@ -47,6 +40,8 @@ public class ConsoleApp {
         list.add("Posh 17:25 18:01");
         list.add("Posh 23:40 00:18");
         list.add("Posh 22:40 23:18");
+
+        return list;
     }
 
 }
