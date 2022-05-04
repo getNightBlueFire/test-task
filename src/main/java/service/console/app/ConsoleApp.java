@@ -111,7 +111,6 @@ public class ConsoleApp {
     private static HashMap<LocalTime, Route> preProcessCollections(List<Route> list) {
         HashMap<LocalTime, Route> timeHashMap = new HashMap<>();
         list.forEach(getRouteConsumer(timeHashMap));
-
         return timeHashMap;
     }
 
@@ -164,11 +163,18 @@ public class ConsoleApp {
         }
     }
 
-    private static void out(List<Route> list, String company, FileWriter fw) throws IOException {
-        for (Route valueRoute : separateByCompanyName(list, company)) {
-            String template = getString(valueRoute);
-            fw.write(template);
-        }
+    private static void out(List<Route> list, String company, FileWriter fw) {
+        listRouteSeparatedByCompanyName(list, company).forEach(throwingConsumerWrapper(route -> fw.write(getString(route))));
+    }
+
+    private static <T> Consumer<T> throwingConsumerWrapper(ThrowingConsumer<T, Exception> throwingConsumer) {
+        return i -> {
+            try {
+                throwingConsumer.accept(i);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        };
     }
 
     private static String getString(Route rou) {
@@ -176,13 +182,10 @@ public class ConsoleApp {
     }
 
     private static void out(List<Route> list, String company) {
-        for (Route valueRoute : separateByCompanyName(list, company)) {
-            String template = getString(valueRoute);
-            System.out.println(template);
-        }
+        listRouteSeparatedByCompanyName(list, company).forEach(route -> System.out.println(getString(route)));
     }
 
-    private static List<Route> separateByCompanyName(List<Route> list, String name) {
+    private static List<Route> listRouteSeparatedByCompanyName(List<Route> list, String name) {
         List<Route> listOfType = new ArrayList<>();
         for (Route route : list) {
             if (route.getBusCompany().contentEquals(name))
@@ -191,3 +194,4 @@ public class ConsoleApp {
         return listOfType;
     }
 }
+
