@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class ConsoleApp {
@@ -109,7 +110,13 @@ public class ConsoleApp {
 
     private static HashMap<LocalTime, Route> preProcessCollections(List<Route> list) {
         HashMap<LocalTime, Route> timeHashMap = new HashMap<>();
-        for (Route route : list) {
+        list.forEach(getRouteConsumer(timeHashMap));
+
+        return timeHashMap;
+    }
+
+    private static Consumer<Route> getRouteConsumer(HashMap<LocalTime, Route> timeHashMap) {
+        return route -> {
             int hour = route.getStart().getHour();
             int minute = route.getStart().getMinute();
             LocalTime localTime = route.getFinish().minusHours(hour).minusMinutes(minute);
@@ -118,9 +125,7 @@ public class ConsoleApp {
                     timeHashMap.put(localTime, route);
                 }
             }
-        }
-
-        return timeHashMap;
+        };
     }
 
     private static boolean isNeedInsert(HashMap<LocalTime, Route> timeHashMap, Route route, LocalTime localTime) {
