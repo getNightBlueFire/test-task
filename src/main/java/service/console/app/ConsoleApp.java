@@ -39,13 +39,14 @@ public class ConsoleApp {
         }
 
     }
+
     private static List<Route> sort(HashMap<LocalTime, Route> map) {
         return map.values().stream().sorted((o1, o2) -> {
             if (o1.getStart().equals(o2.getStart())) {
                 if (o1.getFinish().equals(o2.getFinish())) {
                     return 0;
                 }
-                if (o2.getFinish().isBefore(o2.getFinish())) {
+                if (o1.getFinish().isBefore(o2.getFinish())) {
                     return -1;
                 } else {
                     return 1;
@@ -58,17 +59,23 @@ public class ConsoleApp {
             }
         }).collect(Collectors.toList());
     }
+
     private static void createTestDate(List<String> list) {
         list.add("Posh 10:15 11:10");
+        list.add("Posh 10:21 11:10");
         list.add("Posh 10:10 11:00");
+        list.add("Posh 10:19 11:00");
+        list.add("Posh 10:19 10:53");
         list.add("Grotty 10:10 11:00");
         list.add("Grotty 16:30 18:45");
         list.add("Posh 12:05 12:30");
         list.add("Grotty 12:30 13:25");
         list.add("Grotty 12:45 13:25");
         list.add("Posh 17:25 18:01");
-        //list.add("Posh 23:40 00:18");
+        list.add("Posh 23:40 00:18");
+        list.add("Posh 22:40 23:18");
     }
+
     private static List<Route> getInputFile(String path) {
         List<Route> list = new ArrayList<>();
         try (BufferedReader b = new BufferedReader(new FileReader(path))) {
@@ -86,6 +93,7 @@ public class ConsoleApp {
         }
         return list;
     }
+
     private static List<Route> getInputFile(List<String> path) {
         List<Route> list = new ArrayList<>();
         for (String str : path
@@ -98,6 +106,7 @@ public class ConsoleApp {
         }
         return list;
     }
+
     private static HashMap<LocalTime, Route> preProcessCollections(List<Route> list) {
         HashMap<LocalTime, Route> timeHashMap = new HashMap<>();
         for (Route route : list) {
@@ -105,18 +114,40 @@ public class ConsoleApp {
             int minute = route.getStart().getMinute();
             LocalTime localTime = route.getFinish().minusHours(hour).minusMinutes(minute);
             if (localTime.getHour() == 0 && localTime.getMinute() > 1) {
-                if (!timeHashMap.containsKey(localTime) || (timeHashMap.containsKey(localTime) && timeHashMap.get(
-                        localTime).getBusCompany().equals(GROTTY)) )
+                if (isNeedInsert(timeHashMap, route, localTime)) {
                     timeHashMap.put(localTime, route);
+                }
             }
         }
+
         return timeHashMap;
     }
+
+    private static boolean isNeedInsert(HashMap<LocalTime, Route> timeHashMap, Route route, LocalTime localTime) {
+        return isNotExist(timeHashMap, localTime) ||
+                existButNotPosh(timeHashMap, localTime) ||
+                existButIsEarlierRoute(timeHashMap, localTime, route);
+    }
+
+    private static boolean isNotExist(HashMap<LocalTime, Route> timeHashMap, LocalTime localTime) {
+        return !timeHashMap.containsKey(localTime);
+    }
+
+    private static boolean existButNotPosh(HashMap<LocalTime, Route> timeHashMap, LocalTime localTime) {
+        return timeHashMap.containsKey(localTime) && timeHashMap.get(localTime).getBusCompany().equals(GROTTY);
+    }
+
+    private static boolean existButIsEarlierRoute(HashMap<LocalTime, Route> timeHashMap, LocalTime localTime,
+                                                  Route route) {
+        return timeHashMap.containsKey(localTime) && route.getStart().isBefore(timeHashMap.get(localTime).getStart());
+    }
+
     private static void writeToOutputFile(List<Route> list) {
         out(list, POSH);
         System.out.println();
         out(list, GROTTY);
     }
+
     private static void writeToOutputFile(List<Route> list, String path) {
         try (FileWriter fw = new FileWriter(path)) {
             out(list, POSH, fw);
@@ -127,21 +158,25 @@ public class ConsoleApp {
             e.printStackTrace();
         }
     }
+
     private static void out(List<Route> list, String company, FileWriter fw) throws IOException {
         for (Route valueRoute : separateByCompanyName(list, company)) {
             String template = getString(valueRoute);
             fw.write(template);
         }
     }
+
     private static String getString(Route rou) {
-        return String.format("%s %s %s",rou.getBusCompany(), rou.getStart().toString(),rou.getFinish().toString());
+        return String.format("%s %s %s", rou.getBusCompany(), rou.getStart().toString(), rou.getFinish().toString());
     }
+
     private static void out(List<Route> list, String company) {
         for (Route valueRoute : separateByCompanyName(list, company)) {
             String template = getString(valueRoute);
             System.out.println(template);
         }
     }
+
     private static List<Route> separateByCompanyName(List<Route> list, String name) {
         List<Route> listOfType = new ArrayList<>();
         for (Route route : list) {
