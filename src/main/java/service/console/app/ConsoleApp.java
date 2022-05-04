@@ -39,7 +39,6 @@ public class ConsoleApp {
         }
 
     }
-
     private static List<Route> sort(HashMap<LocalTime, Route> map) {
         return map.values().stream().sorted((o1, o2) -> {
             if (o1.getStart().equals(o2.getStart())) {
@@ -59,7 +58,6 @@ public class ConsoleApp {
             }
         }).collect(Collectors.toList());
     }
-
     private static void createTestDate(List<String> list) {
         list.add("Posh 10:15 11:10");
         list.add("Posh 10:10 11:00");
@@ -71,7 +69,6 @@ public class ConsoleApp {
         list.add("Posh 17:25 18:01");
         //list.add("Posh 23:40 00:18");
     }
-
     private static List<Route> getInputFile(String path) {
         List<Route> list = new ArrayList<>();
         try (BufferedReader b = new BufferedReader(new FileReader(path))) {
@@ -89,7 +86,6 @@ public class ConsoleApp {
         }
         return list;
     }
-
     private static List<Route> getInputFile(List<String> path) {
         List<Route> list = new ArrayList<>();
         for (String str : path
@@ -102,7 +98,6 @@ public class ConsoleApp {
         }
         return list;
     }
-
     private static HashMap<LocalTime, Route> preProcessCollections(List<Route> list) {
         HashMap<LocalTime, Route> timeHashMap = new HashMap<>();
         for (Route route : list) {
@@ -117,13 +112,11 @@ public class ConsoleApp {
         }
         return timeHashMap;
     }
-
     private static void writeToOutputFile(List<Route> list) {
         out(list, POSH);
         System.out.println();
         out(list, GROTTY);
     }
-
     private static void writeToOutputFile(List<Route> list, String path) {
         try (FileWriter fw = new FileWriter(path)) {
             out(list, POSH, fw);
@@ -134,7 +127,6 @@ public class ConsoleApp {
             e.printStackTrace();
         }
     }
-
     private static void out(List<Route> list, String company, FileWriter fw) throws IOException {
         for (Route valueRoute : separateByCompanyName(list, company)) {
             String template = getString(valueRoute);
@@ -144,14 +136,12 @@ public class ConsoleApp {
     private static String getString(Route rou) {
         return String.format("%s %s %s",rou.getBusCompany(), rou.getStart().toString(),rou.getFinish().toString());
     }
-
     private static void out(List<Route> list, String company) {
         for (Route valueRoute : separateByCompanyName(list, company)) {
             String template = getString(valueRoute);
             System.out.println(template);
         }
     }
-
     private static List<Route> separateByCompanyName(List<Route> list, String name) {
         List<Route> listOfType = new ArrayList<>();
         for (Route route : list) {
