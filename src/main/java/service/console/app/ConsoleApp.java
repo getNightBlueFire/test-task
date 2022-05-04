@@ -27,7 +27,7 @@ public class ConsoleApp {
         } else {
             input = args[0];
             list = getInputFile(input);
-            output = input.replace("input", "output");
+            output = input.concat("_output.txt");
         }
 
         List<Route> sort = sort(preProcessCollections(list));
