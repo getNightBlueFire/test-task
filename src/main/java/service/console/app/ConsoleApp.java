@@ -17,8 +17,7 @@ public class ConsoleApp {
         String input;
         String output = null;
         List<Route> list;
-        boolean isTest = true;
-
+        boolean isTest = args.length == 0;
         if (isTest) {
             List<String> test = new ArrayList<>();
             createTestDate(test);
