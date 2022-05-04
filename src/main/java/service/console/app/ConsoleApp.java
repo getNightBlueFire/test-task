@@ -29,8 +29,8 @@ public class ConsoleApp {
             list = getInputFile(input);
             output = input.replace("input", "output");
         }
-        HashMap<LocalTime, Route> routeLocalTimeHashMap = preProcessCollections(list);
-        List<Route> sort = sort(routeLocalTimeHashMap);
+
+        List<Route> sort = sort(preProcessCollections(list));
 
         if (isTest) {
             writeToOutputFile(sort);
@@ -160,5 +160,4 @@ public class ConsoleApp {
         }
         return listOfType;
     }
-
 }
