@@ -1,7 +1,6 @@
 package service.console.app;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,10 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.SortedMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ConsoleApp {
     static final String Separator = " ";
@@ -21,7 +17,9 @@ public class ConsoleApp {
         String input;
         String output = null;
         List<Route> list;
-        if (true) {
+        boolean isTest = true;
+
+        if (isTest) {
             List<String> test = new ArrayList<>();
             createTestDate(test);
             list = getInputFile(test);
@@ -33,7 +31,7 @@ public class ConsoleApp {
         HashMap<LocalTime, Route> routeLocalTimeHashMap = preProcessCollections(list);
         List<Route> sort = sort(routeLocalTimeHashMap);
 
-        if (true) {
+        if (isTest) {
             writeToOutputFile(sort);
         } else {
             writeToOutputFile(sort, output);
@@ -60,7 +58,6 @@ public class ConsoleApp {
             }
         }).collect(Collectors.toList());
     }
-
     private static void createTestDate(List<String> list) {
         list.add("Posh 10:15 11:10");
         list.add("Posh 10:10 11:00");
@@ -71,14 +68,6 @@ public class ConsoleApp {
         list.add("Grotty 12:45 13:25");
         list.add("Posh 17:25 18:01");
         //list.add("Posh 23:40 00:18");
-    }
-
-    private static void finalResult(List<String> list) {
-        list.add("Posh 10:10 11:00");
-        list.add("Posh 10:15 11:10");
-        list.add("Posh 12:05 12:30");
-        list.add("Posh 17:25 18:01");
-        list.add("Grotty 12:45 13:25");
     }
 
     private static List<Route> getInputFile(String path) {
