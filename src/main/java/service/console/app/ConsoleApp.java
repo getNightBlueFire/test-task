@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class ConsoleApp {
     static final String Separator = " ";
+    static final String GROTTY = "Grotty";
+    static final String POSH = "Posh";
 
     public static void main(String[] args) {
         String input;
@@ -57,6 +59,7 @@ public class ConsoleApp {
             }
         }).collect(Collectors.toList());
     }
+
     private static void createTestDate(List<String> list) {
         list.add("Posh 10:15 11:10");
         list.add("Posh 10:10 11:00");
@@ -108,7 +111,7 @@ public class ConsoleApp {
             LocalTime localTime = route.getFinish().minusHours(hour).minusMinutes(minute);
             if (localTime.getHour() == 0 && localTime.getMinute() > 1) {
                 if (!timeHashMap.containsKey(localTime) || (timeHashMap.containsKey(localTime) && timeHashMap.get(
-                        localTime).getBusCompany().equals("Grotty")))
+                        localTime).getBusCompany().equals(GROTTY)) )
                     timeHashMap.put(localTime, route);
             }
         }
@@ -116,16 +119,16 @@ public class ConsoleApp {
     }
 
     private static void writeToOutputFile(List<Route> list) {
-        out(list, "Posh");
+        out(list, POSH);
         System.out.println();
-        out(list, "Grotty");
+        out(list, GROTTY);
     }
 
     private static void writeToOutputFile(List<Route> list, String path) {
         try (FileWriter fw = new FileWriter(path)) {
-            out(list, "Posh", fw);
+            out(list, POSH, fw);
             fw.write("\r\n");
-            out(list, "Grotty", fw);
+            out(list, GROTTY, fw);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,17 +137,21 @@ public class ConsoleApp {
 
     private static void out(List<Route> list, String company, FileWriter fw) throws IOException {
         for (Route valueRoute : separateByCompanyName(list, company)) {
-            String template = valueRoute.getBusCompany() + " " + valueRoute.getStart() + " " + valueRoute.getFinish();
+            String template = getString(valueRoute);
             fw.write(template);
         }
+    }
+    private static String getString(Route rou) {
+        return rou.getBusCompany() + " " + rou.getStart().toString() + " " + rou.getFinish().toString();
     }
 
     private static void out(List<Route> list, String company) {
         for (Route valueRoute : separateByCompanyName(list, company)) {
-            String template = valueRoute.getBusCompany() + " " + valueRoute.getStart() + " " + valueRoute.getFinish();
+            String template = getString(valueRoute);
             System.out.println(template);
         }
     }
+
     private static List<Route> separateByCompanyName(List<Route> list, String name) {
         List<Route> listOfType = new ArrayList<>();
         for (Route route : list) {
