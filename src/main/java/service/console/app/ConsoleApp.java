@@ -142,7 +142,7 @@ public class ConsoleApp {
         }
     }
     private static String getString(Route rou) {
-        return rou.getBusCompany() + " " + rou.getStart().toString() + " " + rou.getFinish().toString();
+        return String.format("%s %s %s",rou.getBusCompany(), rou.getStart().toString(),rou.getFinish().toString());
     }
 
     private static void out(List<Route> list, String company) {
