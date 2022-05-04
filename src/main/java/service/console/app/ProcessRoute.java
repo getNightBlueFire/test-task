@@ -65,7 +65,7 @@ public class ProcessRoute {
         return list;
     }
 
-    public static List<Route> preProcessCollections(List<Route> list) {
+    public static List<Route> processCollections(List<Route> list) {
         HashMap<LocalTime, Route> timeHashMap = new HashMap<>();
         list.forEach(getRouteConsumer(timeHashMap));
         return sort(timeHashMap);

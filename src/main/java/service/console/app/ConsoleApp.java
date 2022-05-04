@@ -1,7 +1,7 @@
 package service.console.app;
 
 import static service.console.app.ProcessRoute.getInputFile;
-import static service.console.app.ProcessRoute.preProcessCollections;
+import static service.console.app.ProcessRoute.processCollections;
 import static service.console.app.ProcessRoute.writeToOutputFile;
 
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ public class ConsoleApp {
             List<String> test = new ArrayList<>();
             createTestDate(test);
             list = getInputFile(test);
-            List<Route> sort = preProcessCollections(list);
+            List<Route> sort = processCollections(list);
             writeToOutputFile(sort);
         } else {
             input = args[0];
             list = getInputFile(input);
             output = input.concat("_output.txt");
-            List<Route> sort = preProcessCollections(list);
+            List<Route> sort = processCollections(list);
             writeToOutputFile(sort, output);
         }
 
