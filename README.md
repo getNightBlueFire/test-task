@@ -15,7 +15,7 @@ Tell me please Dmitry how to start this project?
  - Это Влад.
 
 =======
-Good night, everyone)
+Good night, every one)
 
 Congratulate with the May 1st)
 >>>>>>> new_Branch
@@ -23,3 +23,5 @@ Congratulate with the May 1st)
 
 Привет всем!
 Have a nice day!
+
+Всем привет! Вроде правильно все сделал, если нет, то буду терроризировать Дмитрия!)
