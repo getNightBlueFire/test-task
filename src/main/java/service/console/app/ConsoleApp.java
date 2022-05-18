@@ -12,22 +12,62 @@ public class ConsoleApp {
     public static void main(String[] args) {
         String[][] hideResultMap = new String[10 + 2][10 + 2];
         String[][] userMinerMap = new String[10][10];
+        String[][] work = out(hideResultMap);
 
-        out(hideResultMap);
+        int min = findCountMin(work);
+
+        outConsole(work);
         System.out.println();
         getMines(userMinerMap);
         int x;
         int y;
         Scanner sc = new Scanner(System.in);
         boolean b;
+        boolean c;
         do {
-            x = sc.nextInt();
-            y = sc.nextInt();
-            b = getMove(x, y, userMinerMap, hideResultMap);
+            do {
+                System.out.println("Введите x координату число от 1 до 10");
+                x = sc.nextInt() - 1;
+            } while (x < 10 && x > 1);
+            do {
+                System.out.println("Введите y координату число от 1 до 10");
+                y = sc.nextInt() - 1;
+            } while (y < 10 && y > 1);
+
+            b = getMove(y, x, userMinerMap, work);
+            c = isFinish(userMinerMap, min);
             outConsole(userMinerMap);
-        } while (b);
+        } while (b || c);
 
 
+    }
+
+    private static int findCountMin(String[][] arr) {
+        int c = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[i][j].equals("x")) {
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
+
+    private static boolean isFinish(String[][] arr, int min) {
+        int c = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[i][j].equals("o")) {
+                    c++;
+                }
+            }
+        }
+        if (c + min == 100) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static boolean getMove(int x, int y, String[][] userMinerMap, String[][] hideResultMap) {
