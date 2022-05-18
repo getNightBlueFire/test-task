@@ -10,10 +10,34 @@ import java.util.Scanner;
 
 public class ConsoleApp {
     public static void main(String[] args) {
-        String[][] minerMap = new String[10 + 2][10 + 2];
+        String[][] hideResultMap = new String[10 + 2][10 + 2];
+        String[][] userMinerMap = new String[10][10];
 
-        outConsole(out(minerMap));
+        out(hideResultMap);
+        System.out.println();
+        getMines(userMinerMap);
+        int x;
+        int y;
+        Scanner sc = new Scanner(System.in);
+        boolean b;
+        do {
+            x = sc.nextInt();
+            y = sc.nextInt();
+            b = getMove(x, y, userMinerMap, hideResultMap);
+            outConsole(userMinerMap);
+        } while (b);
 
+
+    }
+
+    private static boolean getMove(int x, int y, String[][] userMinerMap, String[][] hideResultMap) {
+        if (hideResultMap[x][y].equals("x")) {
+            System.out.println("Вы проиграли!!!");
+            userMinerMap[x][y] = hideResultMap[x][y];
+            return false;
+        }
+        userMinerMap[x][y] = hideResultMap[x][y];
+        return true;
     }
 
     private static void getMapMiner(String[][] array) {
@@ -89,7 +113,7 @@ public class ConsoleApp {
     private static void getMines(String[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
-                array[i][j] = " ";
+                array[i][j] = "o";
             }
         }
     }
