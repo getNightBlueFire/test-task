@@ -1,8 +1,6 @@
 package service.console.app;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
 
 /**

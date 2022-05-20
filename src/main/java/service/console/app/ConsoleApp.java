@@ -8,6 +8,10 @@ public class ConsoleApp {
         Person dima = new Person("Dima", "Testovich");
 
         dima.requestCreditCard(tinkoffbank);
+
+        tinkoffbank.getListPersonsInBank();
+
+
         String number = dima.creditCards[0].number;
 
 

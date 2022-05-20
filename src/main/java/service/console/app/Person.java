@@ -90,6 +90,12 @@ public class Person {
                         }
                         creditCards[i] = null;
                         System.out.println("Ваша карта удалена из базы данных");
+                        for (int i2 = 0; i2 < bank.people.length; i2++) {
+                            if (bank.people[i2] == this) {
+                                bank.people[i2] = null;
+                            } else
+                                continue;
+                        }
                     } else {
                         System.out.println("У вас нет карты с таким номером");
                         return;
