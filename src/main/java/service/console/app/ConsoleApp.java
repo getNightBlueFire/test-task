@@ -1,6 +1,10 @@
 package service.console.app;
 
 import static service.console.app.DataBaseImitation.tinkoffbank;
+import static service.console.app.DataBaseImitation.belarusbank;
+import static service.console.app.DataBaseImitation.belgazprombank;
+import static service.console.app.DataBaseImitation.priorbank;
+
 
 public class ConsoleApp {
     public static void main(String[] args) {
@@ -23,7 +27,9 @@ public class ConsoleApp {
         dima.closeCreditCard(tinkoffbank, number);
 
         tinkoffbank.getListPersonsInBank();
-
+        belarusbank.getListPersonsInBank();
+        priorbank.getListPersonsInBank();
+        belgazprombank.getListPersonsInBank();
     }
 
 
