@@ -10,7 +10,10 @@ public class ConsoleApp {
         dima.requestCreditCard(tinkoffbank);
         String number = dima.creditCards[0].number;
 
+
+        //пользователь положил на карту 1000
         dima.addMoneyToCart(number, 1000);
+        //пользователь потратил 999
         dima.payMoneyFromCart(number,999);
 
         dima.closeCreditCard(tinkoffbank, number);
