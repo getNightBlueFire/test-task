@@ -19,16 +19,16 @@ public class Person {
      * @param number указанную сумму
      * @param money
      */
-    public void addMoneyToCart(String number, int money) {
+    public void addMoneyToCard(String number, int money) {
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null)
                 continue;
-            if (creditCards[i].number == number) {
+            if (creditCards[i].number.equals(number)) {
                 creditCards[i].money += money;
                 System.out.println(
                         "На карту **** **** **** " + number.split(" ")[3] + " произошло зачисление. Сумма: " + money);
                 System.out.println("Остаток " + creditCards[i].money);
-
+                System.out.println();
             }
         }
 
@@ -40,26 +40,69 @@ public class Person {
      * @param number указанную сумму
      * @param money
      */
-    public void payMoneyFromCart(String number, int money) {
+    public void payMoneyFromCard(String number, int money) {
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null)
                 continue;
-            if (creditCards[i].number == number && creditCards[i].money - money > 0) {
+            if (creditCards[i].number.equals(number) && creditCards[i].money - money >= 0) {
                 creditCards[i].money -= money;
                 System.out.println(
                         "С карты **** **** **** " + number.split(" ")[3] + " произошло списание. Сумма: " + money);
                 System.out.println("Остаток " + creditCards[i].money);
             }
+            if(creditCards[i].money - money < 0) {
+                System.out.println("Недостаточно средств на карте!");
+            }
+            }
+        System.out.println();
         }
 
-    }
 
+    /**
+     * переводит с карты с
+     *
+     * @param numberCard1 на карту с
+     *
+     * @param numberCard2 указанную сумму
+     *
+     * @param money
+     *
+     */
+
+    public void transferMoneyFromCardToCard(String numberCard1, String numberCard2, int money) {
+        for (int i = 0; i < creditCards.length; i++) {
+            if (creditCards[i] == null)
+                continue;
+            if (creditCards[i].number.equals(numberCard1) && creditCards[i].money - money >= 0) {
+                creditCards[i].money -= money;
+                System.out.println(
+                        "С карты **** **** **** " + numberCard1.split(" ")[3] + " произошло списание. Сумма: " + money);
+                System.out.println("Остаток " + creditCards[i].money);
+                System.out.println();
+            }
+            if (creditCards[i].money - money < 0) {
+                System.out.println("Недостаточно средств на карте!");
+                System.out.println();
+            }
+        }
+        for (int i = 0; i < creditCards.length; i++) {
+            if (creditCards[i] == null)
+                continue;
+            if (creditCards[i].number.equals(numberCard2)) {
+                creditCards[i].money += money;
+                System.out.println(
+                        "На карту **** **** **** " + numberCard2.split(" ")[3] + " произошло зачисление. Сумма: " + money);
+                System.out.println("Остаток " + creditCards[i].money);
+                System.out.println();
+            }
+        }
+    }
     /**
      * запрос от пользователя к
      *
      * @param bank на создание в нем кредитной карты
      */
-    public void requestCreditCard(Bank bank) {
+    public CreditCard requestCreditCard(Bank bank) {
         CreditCard creditCard = bank.createCreditCart(this);
         int c = 1;
         for (int i = 0; i < creditCards.length; i++) {
@@ -69,6 +112,8 @@ public class Person {
             }
         }
         System.out.println("Создана карта с номером " + creditCard.number + " в банке " + bank.name);
+        System.out.println();
+        return creditCard;
     }
 
     /**
@@ -103,5 +148,6 @@ public class Person {
                 }
             }
         }
+        System.out.println();
     }
 }

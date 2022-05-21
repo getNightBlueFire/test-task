@@ -32,7 +32,7 @@ public class Bank {
         }
         CreditCard creditCard = new CreditCard(person.firstName.toUpperCase(), person.secondName.toUpperCase(), this);
         creditCard.month = LocalDate.now().getMonth().getValue();
-        creditCard.year = LocalDate.now().getYear();
+        creditCard.year = LocalDate.now().getYear() + 3;
         Random random = new Random();
         creditCard.cvc = random.nextInt(899) + 100;
         creditCard.pin = random.nextInt(8999) + 1000;
