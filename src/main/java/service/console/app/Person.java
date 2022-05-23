@@ -1,5 +1,7 @@
 package service.console.app;
 
+import java.time.LocalDateTime;
+
 /**
  * пользователь банка
  */
@@ -23,15 +25,22 @@ public class Person {
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null)
                 continue;
-            if (creditCards[i].number == number) {
+            if (creditCards[i].number.equals(number)) {
                 creditCards[i].money += money;
                 System.out.println(
                         "На карту **** **** **** " + number.split(" ")[3] + " произошло зачисление. Сумма: " + money);
                 System.out.println("Остаток " + creditCards[i].money);
-
+                LocalDateTime now = LocalDateTime.now();
+                for (int j = 0; j < creditCards[i].OperationsList.length; j++) {
+                    if(creditCards[i].OperationsList[j] == null){
+                        creditCards[i].OperationsList[j] =  "На карту **** **** **** " + number.split(" ")[3] +
+                                                            " произошло зачисление. Сумма: " + money + " Остаток " + creditCards[i].money +
+                                                            "    Exact time of operation: " + now;
+                        break;
+                    }
+                }
             }
         }
-
     }
 
     /**
@@ -44,11 +53,20 @@ public class Person {
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null)
                 continue;
-            if (creditCards[i].number == number && creditCards[i].money - money > 0) {
+            if (creditCards[i].number.equals(number) && creditCards[i].money - money > 0) {
                 creditCards[i].money -= money;
                 System.out.println(
                         "С карты **** **** **** " + number.split(" ")[3] + " произошло списание. Сумма: " + money);
                 System.out.println("Остаток " + creditCards[i].money);
+                LocalDateTime now = LocalDateTime.now();
+                for (int j = 0; j < creditCards[i].OperationsList.length; j++) {
+                    if(creditCards[i].OperationsList[j] == null){
+                        creditCards[i].OperationsList[j] =  "C карты **** **** **** " + number.split(" ")[3] +
+                                                            " произошло списание. Сумма: " + money + " Остаток " +
+                                                            creditCards[i].money + "    Exact time of operation: " + now;
+                        break;
+                    }
+                }
             }
         }
 
@@ -58,8 +76,9 @@ public class Person {
      * запрос от пользователя к
      *
      * @param bank на создание в нем кредитной карты
+     * @return
      */
-    public void requestCreditCard(Bank bank) {
+    public CreditCard requestCreditCard(Bank bank) {
         CreditCard creditCard = bank.createCreditCart(this);
         int c = 1;
         for (int i = 0; i < creditCards.length; i++) {
@@ -69,6 +88,7 @@ public class Person {
             }
         }
         System.out.println("Создана карта с номером " + creditCard.number + " в банке " + bank.name);
+        return creditCard;
     }
 
     /**
@@ -84,9 +104,18 @@ public class Person {
                 for (int i1 = 0; i1 < person.creditCards.length; i1++) {
                     if (creditCards[i] == null)
                         continue;
-                    if (creditCards[i].number == number) {
+                    if (creditCards[i].number.equals(number)) {
                         if (creditCards[i].money > 0) {
                             System.out.println("В отделении банка заберите остаток средств:" + creditCards[i].money);
+                            LocalDateTime now = LocalDateTime.now();
+                            for (int j = 0; j < creditCards[i].OperationsList.length; j++) {
+                                if(creditCards[i].OperationsList[j] == null){
+                                    creditCards[i].OperationsList[j] =  "В отделении банка заберите остаток средств:" +
+                                                                        creditCards[i].money + "." + " Ваша карта удалена из базы данных"+
+                                                                        "    Exact time of operation: " + now;
+                                    break;
+                                }
+                            }
                         }
                         creditCards[i] = null;
                         System.out.println("Ваша карта удалена из базы данных");
@@ -101,6 +130,13 @@ public class Person {
                         return;
                     }
                 }
+            }
+        }
+    }
+    public void requestOperationsList(CreditCard creditCard){
+        for (int i = 0; i < creditCard.OperationsList.length; i++) {
+            if(creditCard.OperationsList[i] != null){
+                System.out.println(creditCard.OperationsList[i]);
             }
         }
     }

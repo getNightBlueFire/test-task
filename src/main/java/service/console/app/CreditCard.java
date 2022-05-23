@@ -11,6 +11,7 @@ public class CreditCard {
 
     int money;
     Bank bank;
+    String[] OperationsList = new String[10];
     public CreditCard(String ownerFirstName, String ownerSecondName, Bank bank) {
         this.ownerFirstName = ownerFirstName;
         this.ownerSecondName = ownerSecondName;
