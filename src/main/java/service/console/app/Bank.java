@@ -15,6 +15,7 @@ public class Bank {
 
     //
     Person[] people = new Person[100];
+    String[] arrayOfOperations = new String[100];
 
     /**
      * создает кредитную карту
@@ -32,10 +33,10 @@ public class Bank {
         }
         CreditCard creditCard = new CreditCard(person.firstName.toUpperCase(), person.secondName.toUpperCase(), this);
         creditCard.month = LocalDate.now().getMonth().getValue();
-        creditCard.year = LocalDate.now().getYear();
+        creditCard.year = LocalDate.now().getYear() + 3;
         Random random = new Random();
-        creditCard.cvc = random.nextInt(899) + 100;
-        creditCard.pin = random.nextInt(8999) + 1000;
+        creditCard.setCvc(random.nextInt(899) + 100);
+        creditCard.setPin(random.nextInt(8999) + 1000);
         creditCard.number = generateCardNumber();
 
         return creditCard;
@@ -56,7 +57,7 @@ public class Bank {
     }
 
     /**
-     * выводин на консоль список всех клиентов банка и их карты
+     * выводит на консоль список всех клиентов банка и их карты
      */
     public void getListPersonsInBank() {
         System.out.println("Банк:" + this.name);
@@ -74,5 +75,42 @@ public class Bank {
             System.out.println();
         }
     }
+
+    /**
+     * добавляет проводимые операции в массив arrayOfOperations
+     */
+    public void addOperation(String operationInfo) {
+        if (arrayOfOperations[arrayOfOperations.length - 1] == null) {
+            for (int j = 0; j < arrayOfOperations.length; j++) {
+                if (arrayOfOperations[j] == null) {
+                    arrayOfOperations[j] = operationInfo;
+                    break;
+                } else {
+                    continue;
+                }
+            }
+        } else {
+            for (int i = 0; i < arrayOfOperations.length - 1; i++) {
+                for (int j = i + 1; j < arrayOfOperations.length; j++) {
+                    arrayOfOperations[i] = arrayOfOperations[j];
+                    break;
+                }
+            }
+            arrayOfOperations[arrayOfOperations.length - 1] = operationInfo;
+        }
+    }
+    /**
+     * выводит на консоль выписку по счету
+     * поледние 100 операций
+     */
+    public void createAccountStatement() {
+        System.out.println("Выписка по счету:");
+        for (int i = 0; i < arrayOfOperations.length; i++) {
+            if (arrayOfOperations[i] == null) {
+                continue;
+            } else System.out.println(arrayOfOperations[i]);
+        }
+    }
+
 
 }

@@ -1,5 +1,8 @@
 package service.console.app;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * пользователь банка
  */
@@ -7,6 +10,8 @@ public class Person {
     String firstName;
     String secondName;
     CreditCard[] creditCards = new CreditCard[10];
+    private String dateTimeOfOperation;
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     public Person(String firstName, String secondName) {
         this.firstName = firstName;
@@ -19,19 +24,19 @@ public class Person {
      * @param number указанную сумму
      * @param money
      */
-    public void addMoneyToCart(String number, int money) {
+    public void addMoneyToCard(String number, int money) {
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null)
                 continue;
-            if (creditCards[i].number == number) {
+            if (creditCards[i].number.equals(number)) {
                 creditCards[i].money += money;
-                System.out.println(
-                        "На карту **** **** **** " + number.split(" ")[3] + " произошло зачисление. Сумма: " + money);
-                System.out.println("Остаток " + creditCards[i].money);
-
+                dateTimeOfOperation = dtf.format(LocalDateTime.now());
+                String result = "На карту **** **** **** " + number.split(" ")[3] + " произошло зачисление. Сумма: " + money + "\nОстаток " + creditCards[i].money;
+                System.out.println(result);
+                creditCards[i].bank.addOperation(dateTimeOfOperation + " " + result);
+                System.out.println();
             }
         }
-
     }
 
     /**
@@ -40,35 +45,85 @@ public class Person {
      * @param number указанную сумму
      * @param money
      */
-    public void payMoneyFromCart(String number, int money) {
+    public void payMoneyFromCard(String number, int money) {
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null)
                 continue;
-            if (creditCards[i].number == number && creditCards[i].money - money > 0) {
+            if (creditCards[i].number.equals(number) && creditCards[i].money - money >= 0) {
                 creditCards[i].money -= money;
-                System.out.println(
-                        "С карты **** **** **** " + number.split(" ")[3] + " произошло списание. Сумма: " + money);
-                System.out.println("Остаток " + creditCards[i].money);
+                dateTimeOfOperation = dtf.format(LocalDateTime.now());
+                String result = "С карты **** **** **** " + number.split(" ")[3] + " произошло списание. Сумма: " + money + "\nОстаток " + creditCards[i].money;
+                System.out.println(result);
+                creditCards[i].bank.addOperation(dateTimeOfOperation + " " + result);
             }
+            if(creditCards[i].money - money < 0) {
+                System.out.println("Недостаточно средств на карте!");
+            }
+            }
+        System.out.println();
         }
 
-    }
 
+    /**
+     * переводит с карты с
+     *
+     * @param numberCard1 на карту с
+     *
+     * @param numberCard2 указанную сумму
+     *
+     * @param money
+     *
+     */
+
+    public void transferMoneyFromCardToCard(String numberCard1, String numberCard2, int money) {
+        for (int i = 0; i < creditCards.length; i++) {
+            if (creditCards[i] == null)
+                continue;
+            if (creditCards[i].number.equals(numberCard1) && creditCards[i].money - money >= 0) {
+                creditCards[i].money -= money;
+                dateTimeOfOperation = dtf.format(LocalDateTime.now());
+                String result = "С карты **** **** **** " + numberCard1.split(" ")[3] + " произошло списание. Сумма: " + money + "\nОстаток " + creditCards[i].money;
+                System.out.println(result);
+                creditCards[i].bank.addOperation(dateTimeOfOperation + " " + result);
+                System.out.println();
+            }
+            if (creditCards[i].money - money < 0) {
+                System.out.println("Недостаточно средств на карте!");
+                System.out.println();
+            }
+        }
+        for (int i = 0; i < creditCards.length; i++) {
+            if (creditCards[i] == null)
+                continue;
+            if (creditCards[i].number.equals(numberCard2)) {
+                creditCards[i].money += money;
+                String result = "На карту **** **** **** " + numberCard2.split(" ")[3] + " произошло зачисление. Поступил перевод, сумма: " + money + "\nОстаток " + creditCards[i].money;
+                System.out.println(result);
+                creditCards[i].bank.addOperation(dateTimeOfOperation + " " + result);
+                System.out.println();
+            }
+        }
+    }
     /**
      * запрос от пользователя к
      *
      * @param bank на создание в нем кредитной карты
      */
-    public void requestCreditCard(Bank bank) {
+    public CreditCard requestCreditCard(Bank bank) {
         CreditCard creditCard = bank.createCreditCart(this);
         int c = 1;
         for (int i = 0; i < creditCards.length; i++) {
             if (creditCards[i] == null && c == 1) {
                 c++;
                 creditCards[i] = creditCard;
+                dateTimeOfOperation = dtf.format(LocalDateTime.now());
+                creditCards[i].bank.addOperation(dateTimeOfOperation + " Создана карта с номером " + creditCard.number + " в банке " + bank.name);
             }
         }
         System.out.println("Создана карта с номером " + creditCard.number + " в банке " + bank.name);
+        System.out.println();
+
+        return creditCard;
     }
 
     /**
@@ -84,7 +139,7 @@ public class Person {
                 for (int i1 = 0; i1 < person.creditCards.length; i1++) {
                     if (creditCards[i] == null)
                         continue;
-                    if (creditCards[i].number == number) {
+                    if (creditCards[i].number.equals(number)) {
                         if (creditCards[i].money > 0) {
                             System.out.println("В отделении банка заберите остаток средств:" + creditCards[i].money);
                         }
@@ -103,5 +158,6 @@ public class Person {
                 }
             }
         }
+        System.out.println();
     }
 }
