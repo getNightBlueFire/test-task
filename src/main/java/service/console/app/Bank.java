@@ -35,8 +35,8 @@ public class Bank {
         creditCard.month = LocalDate.now().getMonth().getValue();
         creditCard.year = LocalDate.now().getYear() + 3;
         Random random = new Random();
-        creditCard.cvc = random.nextInt(899) + 100;
-        creditCard.pin = random.nextInt(8999) + 1000;
+        creditCard.setCvc(random.nextInt(899) + 100);
+        creditCard.setPin(random.nextInt(8999) + 1000);
         creditCard.number = generateCardNumber();
 
         return creditCard;

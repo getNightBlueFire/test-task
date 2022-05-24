@@ -4,13 +4,27 @@ public class CreditCard {
     String number;
     String ownerFirstName;
     String ownerSecondName;
-    int cvc;
+    private int cvc;
     int year;
     int month;
-    int pin;
+    private int pin;
 
     int money;
     Bank bank;
+
+    public int getCvc() {
+        return cvc;
+    }
+    public void setCvc(int cvc) {
+        this.cvc = cvc;
+    }
+
+    public int getPin() {
+        return pin;
+    }
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
     public CreditCard(String ownerFirstName, String ownerSecondName, Bank bank) {
         this.ownerFirstName = ownerFirstName;
         this.ownerSecondName = ownerSecondName;
