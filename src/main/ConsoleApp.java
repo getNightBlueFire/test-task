@@ -14,6 +14,8 @@ public class ConsoleApp {
 	public static void main(String[] args) {
 
 		// String input = args[0];
+		
+		// hello 
 
 		String input = "C:/Users/Administrator/Desktop/input.txt";
 		String output = input.replace("input", "output");
