@@ -13,9 +13,14 @@ public class ConsoleApp {
 
 	public static void main(String[] args) {
 
-
+		System.out.println("Hello world git lesson");
 		akdlgnhgdflkjhhjndglk
+       System.out.println("test2_folder");
 
+				awfddfg
+
+
+				xdvdfh
 
 				dsfghfgjhli
 
