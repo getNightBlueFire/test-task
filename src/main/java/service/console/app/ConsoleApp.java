@@ -13,9 +13,7 @@ public class ConsoleApp {
 
 	public static void main(String[] args) {
 
-
-		System.out.println("Chernichka :)");
-		// no comments
+		System.out.println("Если сразу не получилось хорошо, назовите это версией 1.0.");
 
 	}
 
