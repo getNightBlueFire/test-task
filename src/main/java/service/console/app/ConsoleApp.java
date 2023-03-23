@@ -34,7 +34,7 @@ public class ConsoleApp {
 		sortList(list);
 		postProcessCollections(list);
 		writeToOutputFile(list, output);
-
+		System.out.println("");
 	}
 
 	private static void sortList(List<Route> list) {
