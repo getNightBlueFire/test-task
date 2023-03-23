@@ -15,6 +15,7 @@ public class ConsoleApp {
 
 
 		System.out.println("HEEEEEEEEEEEY");
+		System.out.println("HEEEEEEEEEEEY");
 
 	}
 
