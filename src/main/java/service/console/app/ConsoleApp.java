@@ -13,27 +13,14 @@ public class ConsoleApp {
 
 	public static void main(String[] args) {
 
-
-		akdlgnhgdflkjhhjndglk
-
-
-				awfddfg
+		System.out.println("Hello world github");
 
 
-				xdvdfh
 
-				dsfghfgjhli
 
-		System.out.println("Dont be late next time, pls!!!");
 
-		String input = args[0];
 
-		// String input = "C:/Users/Administrator/Desktop/input.txt";
-		String output = input.replace("input", "output");
-		List<Route> list = getInputFile(input);
-		sortList(list);
-		postProcessCollections(list);
-		writeToOutputFile(list, output);
+
 
 	}
 
