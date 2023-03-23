@@ -15,6 +15,7 @@ public class ConsoleApp {
 
 
 		System.out.println("Chernichka :)");
+		// no comments
 
 	}
 
