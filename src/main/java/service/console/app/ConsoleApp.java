@@ -16,12 +16,17 @@ public class ConsoleApp {
 		System.out.println("Hello world github");
 
 
+			System.out.println("Hello world!");
+			System.out.print("Hello world!");
+
+
 		System.out.println();
 
 
 
 		System.out.println("Kovnat");
 		System.out.println();
+
 
 
 
