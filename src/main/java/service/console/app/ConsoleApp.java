@@ -13,21 +13,13 @@ public class ConsoleApp {
 
 	public static void main(String[] args) {
 
-		System.out.println("Hello world github");
+		System.out.println("Всем хороших выходных!!!!");
 
 
 		System.out.println();
 
 
 
-		System.out.println("Kovnat");
-		System.out.println();
-
-
-
-
-		System.out.println("Chernichka :)");
-		// no comments
 
 	}
 
