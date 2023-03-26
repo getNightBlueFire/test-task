@@ -17,8 +17,7 @@ public class ConsoleApp {
 
 
 		System.out.println();
-
-
+		System.out.println("QWERTYU");// от ильи*
 
 
 	}
