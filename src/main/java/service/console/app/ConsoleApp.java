@@ -10,6 +10,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ConsoleApp {
+	public static void main(String[] args) {
+
+		System.out.println("Всем хороших выходных!!!!");
+
+
+		System.out.println();
+		System.out.println("QWERTYU");// от ильи*
+		System.out.println("Привет от ивана!")
+	}
+
+
+	}
 
 	public static void main(String[] args) {
 

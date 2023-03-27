@@ -32,4 +32,7 @@ public class MyTest {
 	public void testTime() {
 		assertNotEquals(f.getBusTime(), s.getBusTime());
 	}
+	@Test
+	public void TestIvan(){System.out.println("Привет от ивана!");}
 }
+
